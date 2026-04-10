@@ -255,10 +255,12 @@ with tab2:
             pdf.ln(10)
             for index, row in df.head(20).iterrows():  # Limit to first 20 for PDF
                 pdf.cell(200, 10, txt=f"Sentiment: {row['sentiment']} - Polarity: {row['polarity']:.2f}", ln=True)
-                pdf.multi_cell(0, 10, txt=f"Review: {row['review'][:100]}...")
+                safe_review = str(row['review'])[:100].encode('latin-1','replace').decode('latin-1')
+                pdf.multi_cell(0, 10, txt=f"Review: {safe_review}...")
                 pdf.ln(5)
-            pdf_output = pdf.output(dest='S').encode('latin1')
-            st.download_button("Download PDF", pdf_output, "sentiment_report.pdf", "application/pdf")
+
+                pdf_output = pdf.output(dest='S').encode('latin-1','replace')
+                st.download_button("Download PDF", pdf_output, "sentiment_report.pdf", "application/pdf")
     else:
         st.info("No reviews analyzed yet. Go to 'Bulk Analysis' to upload reviews.")
 
