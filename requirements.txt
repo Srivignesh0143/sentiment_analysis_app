@@ -4,3 +4,5 @@ PyPDF2
 textblob
 plotly
 fpdf
+openpyxl
+xlrd
