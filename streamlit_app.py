@@ -259,8 +259,14 @@ with tab2:
                 pdf.multi_cell(0, 10, txt=f"Review: {safe_review}...")
                 pdf.ln(5)
 
-                pdf_output = pdf.output(dest='S').encode('latin-1','replace')
-                st.download_button("Download PDF", pdf_output, "sentiment_report.pdf", "application/pdf")
+            pdf_output = pdf.output(dest='S').encode('latin-1','replace')
+            st.download_button(
+             "Download PDF",
+            pdf_output,
+            "sentiment_report.pdf",
+            "application/pdf",
+            key="download_pdf_report"
+            )
     else:
         st.info("No reviews analyzed yet. Go to 'Bulk Analysis' to upload reviews.")
 
